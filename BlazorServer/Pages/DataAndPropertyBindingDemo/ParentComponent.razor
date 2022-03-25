@@ -16,9 +16,10 @@
 *@
 
 <p><strong>@MessageText</strong></p>
-<_AnotherChildComponent Placeholder="Placeholder from parent"></_AnotherChildComponent>
+<_AnotherChildComponent InputAttributes="InputAttributesFromParent"></_AnotherChildComponent>
 
 @*Show parameter overrides*@
+@*<_AnotherChildComponent Placeholder="Placeholder from parent"></_AnotherChildComponent>*@
 @*<_AnotherChildComponent Placeholder="Placeholder from parent" MaxLength="5"></_AnotherChildComponent>*@
 
 
@@ -26,6 +27,13 @@
 </_ChildComponent>*@
 
 @code {
+
+    public Dictionary<string, object> InputAttributesFromParent { get; set; } = new ()
+    {
+        { "required", "required" },
+        { "placeholder", "Enter name from parent" },
+        { "maxlength", 5 }
+    };
 
     public string MessageText = string.Empty;
 

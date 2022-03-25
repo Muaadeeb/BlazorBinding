@@ -1,19 +1,31 @@
 ﻿<div>
     <h4 class="text-primary pt-3">Another Child Component</h4>
-    <input id="name" placeholder="@Placeholder"/>
+
+    @*Example of Attribute Splatting*@
+    <input id="name" @attributes="@InputAttributes"/>
+    
     
     @*Adding additional parameters to modify input behavior*@
+    @*<input id="name" placeholder="@Placeholder"/>*@
     @*<input id="name" placeholder="@Placeholder" required="@Required" maxlength="@MaxLength"/>*@
 </div>
 @code {
 
-    [Parameter]
-    public string Placeholder { get; set; } = "Initial Text";
+    // We could use this or we could use attribute splatting
+    //[Parameter]
+    //public string Placeholder { get; set; } = "Initial Text";
+    //[Parameter]
+    //public string Required { get; set; } = "required";
+    //[Parameter]
+    //public string MaxLength { get; set; } = "10";
 
-    [Parameter]
-    public string Required { get; set; } = "required";
+    [Parameter] 
+    public Dictionary<string, object> InputAttributes { get; set; } = new ()
+    {
+        { "required", "required" },
+        { "placeholder", "Initial Text" },
+        { "maxlength", 10 }
+    };
 
-    [Parameter]
-    public string MaxLength { get; set; } = "10";
 
 }
