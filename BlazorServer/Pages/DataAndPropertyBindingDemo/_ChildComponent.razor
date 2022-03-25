@@ -1,0 +1,39 @@
+﻿<div>
+    <div class="alert alert-info">@Title</div>
+    <div class="alert alert-success">
+        @if (DangerChildContent is not null)
+        {
+            <span>@DangerChildContent</span>
+        }
+        else
+        {
+            @if (ChildContent is not null)
+            {
+                <span>@ChildContent</span>
+            }
+            else
+            {
+                <span>Show else condition for when there is an empty RenderFragment</span>
+            }
+        }
+        
+    </div>
+    <button class="btn btn-danger" @onclick="OnButtonClick">Button to be clicked</button>
+</div>
+
+@code {
+    [Parameter]
+    public string Title { get; set; } = null!;
+
+    // RenderFragment = capture what ever is in the content of the starting/closing tags.
+    [Parameter]
+    public RenderFragment ChildContent { get; set; } = null!;
+
+    [Parameter]
+    public RenderFragment DangerChildContent { get; set; } = null!;
+
+    [Parameter]
+    public EventCallback OnButtonClick { get; set; }
+
+
+}

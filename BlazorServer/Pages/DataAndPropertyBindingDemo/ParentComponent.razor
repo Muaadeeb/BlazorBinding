@@ -1,0 +1,40 @@
+﻿@page "/dataandpropertybindingdemo/parentComponent"
+
+<h3>ParentComponent / Child Relation</h3>
+
+@*#1 & #2 - same result*@
+<_ChildComponent OnButtonClick="ShowMessage" Title="This title is passed as parameter from the parent component">
+    <ChildContent>RenderFragment from parent(1)! Show me my text with syntaxical sugar flavor sauce! (1vs2) </ChildContent>
+    
+    @* Comment / uncomment to demonstrate multiple RenderFragments
+    <DangerChildContent>Danger content from RenderFragment</DangerChildContent>*@
+</_ChildComponent>
+
+@*<_ChildComponent OnButtonClick="ShowMessage" Title="This title is passed as parameter from the parent component">
+    RenderFragment from parent(2)! - Show me my text
+</_ChildComponent>
+*@
+
+<p><strong>@MessageText</strong></p>
+<_AnotherChildComponent Placeholder="Placeholder from parent"></_AnotherChildComponent>
+
+@*Show parameter overrides*@
+@*<_AnotherChildComponent Placeholder="Placeholder from parent" MaxLength="5"></_AnotherChildComponent>*@
+
+
+@*<_ChildComponent Title="This is an empty second child component">
+</_ChildComponent>*@
+
+@code {
+
+    public string MessageText = string.Empty;
+
+    private void ShowMessage()
+    {
+        MessageText = "Button clicked from Child Component";
+    }
+
+
+
+
+}
