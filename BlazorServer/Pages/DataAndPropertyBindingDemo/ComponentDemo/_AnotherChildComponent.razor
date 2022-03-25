@@ -2,7 +2,10 @@
     <h4 class="text-primary pt-3">Another Child Component</h4>
 
     @*Example of Attribute Splatting*@
-    <input id="name" @attributes="@InputAttributes"/>
+    @*Note FIFO/LIFO DOM - @attributes is from parent and placeholder is from child - placeholder read after @attributes so it wins.
+        if we had placeholder first and @attributes second then @attributes wins.*@
+    <input id="name" @attributes="@InputAttributes" placeholder="Child Placeholder"/>
+    @*<input id="name" placeholder="Child Placeholder" @attributes="@InputAttributes"/>*@
     
     
     @*Adding additional parameters to modify input behavior*@
@@ -11,6 +14,19 @@
 </div>
 @code {
 
+    // imagine a world where we can dynamically capture & auto assign attribute splatting.
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object> InputAttributes { get; set; } = new();
+
+    // attribute splatting
+    //[Parameter] 
+    //public Dictionary<string, object> InputAttributes { get; set; } = new ()
+    //{
+    //    { "required", "required" },
+    //    { "placeholder", "Initial Text" },
+    //    { "maxlength", 10 }
+    //};
+
     // We could use this or we could use attribute splatting
     //[Parameter]
     //public string Placeholder { get; set; } = "Initial Text";
@@ -18,14 +34,6 @@
     //public string Required { get; set; } = "required";
     //[Parameter]
     //public string MaxLength { get; set; } = "10";
-
-    [Parameter] 
-    public Dictionary<string, object> InputAttributes { get; set; } = new ()
-    {
-        { "required", "required" },
-        { "placeholder", "Initial Text" },
-        { "maxlength", 10 }
-    };
 
 
 }

@@ -1,4 +1,5 @@
 ﻿@page "/dataandpropertybindingdemo/parentComponent"
+@using System.Diagnostics
 
 <h3>ParentComponent / Child Relation</h3>
 
@@ -16,11 +17,12 @@
 *@
 
 <p><strong>@MessageText</strong></p>
-<_AnotherChildComponent InputAttributes="InputAttributesFromParent"></_AnotherChildComponent>
+<_AnotherChildComponent Placeholder="Placeholder from parent"></_AnotherChildComponent>
 
 @*Show parameter overrides*@
 @*<_AnotherChildComponent Placeholder="Placeholder from parent"></_AnotherChildComponent>*@
 @*<_AnotherChildComponent Placeholder="Placeholder from parent" MaxLength="5"></_AnotherChildComponent>*@
+@*<_AnotherChildComponent InputAttributes="InputAttributesFromParent"></_AnotherChildComponent>*@
 
 
 @*<_ChildComponent Title="This is an empty second child component">
@@ -28,12 +30,13 @@
 
 @code {
 
-    public Dictionary<string, object> InputAttributesFromParent { get; set; } = new ()
-    {
-        { "required", "required" },
-        { "placeholder", "Enter name from parent" },
-        { "maxlength", 5 }
-    };
+    //// sample attribute splatting
+    //public Dictionary<string, object> InputAttributesFromParent { get; set; } = new ()
+    //{
+    //    { "required", "required" },
+    //    { "placeholder", "Enter name from parent" },
+    //    { "maxlength", 5 }
+    //};
 
     public string MessageText = string.Empty;
 
