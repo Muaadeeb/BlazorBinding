@@ -1,5 +1,5 @@
-﻿@*@page "/dataandpropertybindingdemo/productdemo"*@
-@page "/productdemo"
+﻿@page "/dataandpropertybindingdemo/productdemo"
+@*@page "/productdemo"*@
 
 <h2 class="text-primary">DemoProduct</h2>
 <p>Favorites Total : @SelectedFavoriteCount</p>
@@ -9,29 +9,19 @@
     <div class="row">
         @foreach (var prod in Products)
         {
-            <_IndividualProduct Product="prod"></_IndividualProduct>
+            <_IndividualProduct Product="prod" 
+                                OnFavoriteUpdated="FavoriteCountUpdate" 
+                                OnLastSelectedProductChange="SelectedProductUpdate">
+            </_IndividualProduct>
         }
     </div>
 </div>
 
 @code {
-    //public Product Product = new()
-    //{
-    //        Id = 1,
-    //        Name = "Rose Candle",
-    //        IsActive = true,
-    //        Price = 10.99,
-    //        ProductProperties = new List<ProductProp>()
-    //    {
-    //        new() {Id = 1, Key = "Color", Value="Black"},
-    //        new() {Id = 2, Key = "Flavor", Value="Rose Jasmine"},
-    //        new() {Id = 3, Key = "Size", Value="20oz"}
-    //    }
-    //};
 
-    List<Product> Products = new();
+    public readonly List<Product> Products = new();
     private int SelectedFavoriteCount { get; set; } = 0;
-
+    private string LastSelectedProductName { get; set; } = null!;
 
 
     protected override void OnInitialized()
@@ -75,6 +65,11 @@
         {
             SelectedFavoriteCount--;
         }
+    }
+
+    protected void SelectedProductUpdate(string productName)
+    {
+        LastSelectedProductName = productName;
     }
 
 }
