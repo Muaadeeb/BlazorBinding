@@ -2,12 +2,16 @@
     
     <h4 class="text-primary pl-4 pt-2 col-12">Grand Child Component</h4>
     <p>There is a message - @MessageForGrandChild</p>
+    <p>Lucky number - @LuckyNumberForGrandChild</p>
 
 </div>
 
 
 
 @code {
-    [Parameter]
-    public string MessageForGrandChild { get; set; }
+    [CascadingParameter(Name = "message")]
+    public string MessageForGrandChild { get; set; } = null!;
+
+    [CascadingParameter(Name ="luckyNumber")]
+    public int LuckyNumberForGrandChild { get; set; }
 }

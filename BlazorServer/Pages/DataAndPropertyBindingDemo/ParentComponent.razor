@@ -4,13 +4,14 @@
 <h3>ParentComponent / Child Relation</h3>
 
 @*#1 & #2 - same result*@
-<_ChildComponent OnButtonClick="ShowMessage" Title="This title is passed as parameter from the parent component"
-                 MessageForGrandChild="This message is from your grand parent (ParentComponent)">
-    <ChildContent>RenderFragment from parent(1)! Show me my text with syntaxical sugar flavor sauce! (1vs2) </ChildContent>
-    
-    @* Comment / uncomment to demonstrate multiple RenderFragments
-    <DangerChildContent>Danger content from RenderFragment</DangerChildContent>*@
-</_ChildComponent>
+<CascadingValue Value="MessageForGrandChild" Name="message">
+    <CascadingValue Value="@LuckyNumber" Name="luckyNumber">
+        <_ChildComponent OnButtonClick="ShowMessage" Title="This title is passed as parameter from the parent component">
+            <ChildContent>RenderFragment from parent(1)! Show me my text with syntaxical sugar flavor sauce! (1vs2) </ChildContent>
+        </_ChildComponent>
+    </CascadingValue>
+</CascadingValue>
+
 
 @*<_ChildComponent OnButtonClick="ShowMessage" Title="This title is passed as parameter from the parent component">
     RenderFragment from parent(2)! - Show me my text
@@ -30,6 +31,9 @@
 </_ChildComponent>*@
 
 @code {
+
+    public string MessageForGrandChild = "This message is from your grand parent (ParentComponent)";
+    public int LuckyNumber = 7;
 
     //// sample attribute splatting
     //public Dictionary<string, object> InputAttributesFromParent { get; set; } = new ()
