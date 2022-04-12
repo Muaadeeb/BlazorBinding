@@ -6,7 +6,7 @@
 @*#1 & #2 - same result*@
 <CascadingValue Value="MessageForGrandChild" Name="message">
     <CascadingValue Value="@LuckyNumber" Name="luckyNumber">
-        <_ChildComponent OnButtonClick="ShowMessage" Title="This title is passed as parameter from the parent component">
+        <_ChildComponent @ref="childComponent" OnButtonClick="ShowMessage" Title="This title is passed as parameter from the parent component">
             <ChildContent>RenderFragment from parent(1)! Show me my text with syntaxical sugar flavor sauce! (1vs2) </ChildContent>
         </_ChildComponent>
     </CascadingValue>
@@ -30,7 +30,15 @@
 @*<_ChildComponent Title="This is an empty second child component">
 </_ChildComponent>*@
 
+
+<div class="row" style="margin-top: 25px">
+    <h4 class="text-primary pt-3">This parent component will invoke a method within the child.</h4>
+    <button class="btn btn-success" @onclick="() => childComponent.ToastrSuccess()">Show SweetAlert</button>
+</div>
+
 @code {
+    // This will be used to create a reference in the parent so we can access methods within the child component
+    private _ChildComponent childComponent;
 
     public string MessageForGrandChild = "This message is from your grand parent (ParentComponent)";
     public int LuckyNumber = 7;

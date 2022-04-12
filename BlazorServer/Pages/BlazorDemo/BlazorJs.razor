@@ -1,4 +1,5 @@
 ﻿@page "/blazordemo/blazorJs"
+
 @inject IJSRuntime _JsRuntime
 <h3>BlazorJs</h3>
 
@@ -33,7 +34,7 @@
 
     private async Task TestConfirmBox()
     {
-        ConfirmResult= await _JsRuntime.InvokeAsync<bool>("confirm", ConfirmMessage);
+        ConfirmResult = await _JsRuntime.InvokeAsync<bool>("confirm", ConfirmMessage);
     }
 
     private async Task ToastrSuccess()
