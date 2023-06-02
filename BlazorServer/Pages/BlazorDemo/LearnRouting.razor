@@ -1,4 +1,7 @@
 ﻿@page "/learnRouting"
+@page "/omg/edit"
+@page "/omg/edit/{testme}"
+@page "/omg/edit/{parameter1:int}/{parameter2}"
 @page "/learnRouting/{parameter1}"
 @page "/learnRouting/{parameter1:int}/{parameter2}"
 
@@ -11,10 +14,17 @@
 
 <button @onclick="NavigateToQueryParam" class="btn btn-primary">Navigate to query parameter</button>
 <button class="btn btn-success" @onclick="LoadParameters">Load Parameters</button>
+
+<button @onclick="NavigateToQueryParam2" class="btn btn-primary">Navigate to query parameter 2</button>
+<button class="btn btn-success" @onclick="LoadParameters2">Load Parameters2</button>
+
 <br />
 <h3>Query String Parameters: </h3>
 <h4>Param 1: @Param1</h4>
 <h4>Param 2: @Param2</h4>
+
+<h3>Query String Parameters: #2</h3>
+<h4>TestMe: @TestMe</h4>
 
 @code {
     [Parameter]
@@ -23,6 +33,9 @@
     public int Parameter1 { get; set; }
     [Parameter]
     public string Parameter2 { get; set; } = null!;
+
+    [Parameter]
+    public string TestMe { get; set; } = null!;
 
     public string Param1 { get; set; } = null!;
     public string Param2 { get; set; } = null!;
@@ -35,9 +48,33 @@
         Param2 = queryParam["Param2"]!;
     }
 
+    private void LoadParameters2()
+    {
+        var absoluteUri = new Uri(_NavigationManager.Uri);
+        var queryParam = System.Web.HttpUtility.ParseQueryString(absoluteUri.Query);
+        TestMe = queryParam["TestMe"]!;
+    }
+
     private void NavigateToQueryParam()
     {
         _NavigationManager.NavigateTo("learnRouting?Param1=1&Param2=BlazorDemo");
+    }
+
+    private void NavigateToQueryParam2()
+    {
+        // ????
+        var someString = "Hello World";
+        var myInt = 1;
+        var myString = "MyString";
+        ////_NavigationManager.NavigateTo("learnRouting?Param1=1&Param2=BlazorDemo");
+        //_NavigationManager.NavigateTo("omg/edit?TestMe=HelloWorld");
+        
+        //_NavigationManager.NavigateTo("omg/edit"); // Routing WORKS as expected.
+
+        //_NavigationManager.NavigateTo($"omg/edit/{someString}"); // Routing WORKS as expected and parameter is instantly available.
+
+        _NavigationManager.NavigateTo($"omg/edit?Param1={myInt}&Param2={myString}"); // Routing WORKS as expected and parameters can be pulled is instantly available.
+
     }
 
 }
